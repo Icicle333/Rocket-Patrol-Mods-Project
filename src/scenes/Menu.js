@@ -7,6 +7,8 @@ class Menu extends Phaser.Scene {
         this.load.image('rocket', './assets/rocket.png');
         this.load.image('spaceship', './assets/spaceship.png');
         this.load.image('starfield', './assets/starfield.png');
+        this.load.image('menuBackground', './assets/menu_background.png');
+        this.load.image('smallSpaceShip', './assets/smaller_spaceship-Picsart-BackgroundRemover (1).png');
         this.load.spritesheet('explosion', './assets/explosion.png', {
             frameWidth: 64,
             frameHeight: 32,
@@ -15,10 +17,17 @@ class Menu extends Phaser.Scene {
         })
         //load audio
         this.load.audio('sfx-select', './assets/sfx-select.wav')
-        this.load.audio('sfx-explosion', './assets/sfx-explosion.wav')
+        this.load.audio('sfx-explosion1', './assets/explosion1.wav')
         this.load.audio('sfx-shot', './assets/sfx-shot.wav')
+        this.load.audio('sfx-explosion2', './assets/explosion2.wav')
+        this.load.audio('sfx-explosion3', './assets/explosion3.wav')
+        this.load.audio('sfx-explosion4', './assets/explosion4.wav')
+        this.load.audio('sfx-explosion5', './assets/explosion5.wav')
     }
     create(){
+        const screenCenterX = this.cameras.main.width / 2;
+        const screenCenterY = this.cameras.main.height / 2;
+        this.add.image(screenCenterX, screenCenterY, 'menuBackground');
         this.anims.create({
             key: 'explode',
             frames: this.anims.generateFrameNumbers('explosion', {start: 0, end: 9, first: 0}),
@@ -26,10 +35,10 @@ class Menu extends Phaser.Scene {
         })
 
         let menuConfig = {
-            fontFamily : 'Courier',
-            fontSize : '28px',
-            backgroundColor: '#F3B141',
-            color: '#843605',
+            fontFamily : 'fantasy',
+            fontSize : '24px',
+            backgroundColor: '#e54ed0',
+            color: '#44008b',
             align: 'right',
             padding: {
                 top: 5,
@@ -38,11 +47,13 @@ class Menu extends Phaser.Scene {
             fixedWidth: 0
         }
         //display menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'ROCKET PATROL', menuConfig).setOrigin(0.5)
-        this.add.text(game.config.width/2, game.config.height/2, 'Use <--> arrows to move & (F) to fire', menuConfig).setOrigin(0.5)
-        menuConfig.backgroundColor = '#00FF00'
-        menuConfig.color = '#000'
-        this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 - (3* borderUISize) - borderPadding, 'ROCKET PATROL', menuConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'Use <--> arrows to move & (F) to fire ', menuConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2, 'or', menuConfig).setOrigin(0.5)
+        this.add.text(game.config.width/2, game.config.height/2 + (1.5* borderUISize) - borderPadding, 'move with cursor on rocket and fire by pressing it', menuConfig).setOrigin(0.5)
+        menuConfig.backgroundColor = '#ffe4f2'
+        menuConfig.color = '#00076f'
+        this.add.text(game.config.width/2, game.config.height/2 + (3*borderUISize) + borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5)
         keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT)
         keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT)
     }
